@@ -1,0 +1,17 @@
+   @Override
+    public Employeedto createEmployee(Employeedto employeedto) {
+        Employee employee = modelMapper.map(employeedto, Employee.class);
+
+        if (employeedto.getDepartmentId() != null) {
+            Department department = departmentrepository.findById(employeedto.getDepartmentId())
+                    .orElseThrow(() -> new RuntimeException("Department not found"));
+            employee.setDepartment(department);
+        }
+        Employee savedEmployee = employeeRepository.save(employee);
+        Employeedto dto = modelMapper.map(savedEmployee, Employeedto.class);
+        if (savedEmployee.getDepartment() != null) {
+            dto.setDepartmentId(savedEmployee.getDepartment().getDepartmentId());
+        }
+
+        return dto;
+    }
