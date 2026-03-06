@@ -1,25 +1,23 @@
 pipeline {
     agent any
 
+    environment {
+        JAVA_HOME = "C:\\Program Files\\Java\\jdk-17"
+        PATH = "${JAVA_HOME}\\bin;${env.PATH}"
+    }
+
     stages {
 
-        stage('Clone Repository') {
+        stage('Build') {
             steps {
-                git 'https://github.com/NikhithaReddy48/EmployeeManagement.git'
-            }
-        }
-
-        stage('Build Project') {
-            steps {
-                bat 'mvnw clean install'
+                bat 'mvnw.cmd clean install'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvnw test'
+                bat 'mvnw.cmd test'
             }
         }
-
     }
 }
