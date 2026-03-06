@@ -3,10 +3,16 @@ pipeline {
 
     environment {
         JAVA_HOME = "C:\\Program Files\\Java\\jdk-17"
-        PATH = "${JAVA_HOME}\\bin;${env.PATH}"
+        PATH = "C:\\Program Files\\Java\\jdk-17\\bin;${env.PATH}"
     }
 
     stages {
+
+        stage('Check Java Version') {
+            steps {
+                bat 'java -version'
+            }
+        }
 
         stage('Build') {
             steps {
@@ -18,6 +24,16 @@ pipeline {
             steps {
                 bat 'mvnw.cmd test'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build completed successfully!'
+        }
+
+        failure {
+            echo 'Build failed!'
         }
     }
 }
