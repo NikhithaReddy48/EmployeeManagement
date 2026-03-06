@@ -3,15 +3,15 @@ pipeline {
 
     environment {
         JAVA_HOME = "C:\\Program Files\\Java\\jdk-17"
-        PATH = "${JAVA_HOME}\\bin;${env.PATH}"
+        PATH = "C:\\Program Files\\Java\\jdk-17\\bin;${env.PATH}"
     }
 
     stages {
 
         stage('Build Project') {
             steps {
-                bat 'java -version'
-                bat 'mvnw.cmd clean install'
+                bat '"%JAVA_HOME%\\bin\\java" -version'
+                bat 'mvnw.cmd -Dmaven.compiler.release=17 clean install'
             }
         }
 
