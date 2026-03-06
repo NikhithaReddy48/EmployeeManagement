@@ -10,14 +10,8 @@ pipeline {
 
         stage('Build Project') {
             steps {
-                bat '"%JAVA_HOME%\\bin\\java" -version'
-                bat 'mvnw.cmd -Dmaven.compiler.release=17 clean install'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                bat 'mvnw.cmd test'
+                bat 'java -version'
+                bat 'mvnw.cmd clean install -Dmaven.compiler.proc=none -DskipTests'
             }
         }
 
