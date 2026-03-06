@@ -1,20 +1,16 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK17'
+    environment {
+        JAVA_HOME = "C:\\Program Files\\Java\\jdk-17"
+        PATH = "${JAVA_HOME}\\bin;${env.PATH}"
     }
 
     stages {
 
-        stage('Check Java') {
+        stage('Build Project') {
             steps {
                 bat 'java -version'
-            }
-        }
-
-        stage('Build') {
-            steps {
                 bat 'mvnw.cmd clean install'
             }
         }
@@ -24,5 +20,6 @@ pipeline {
                 bat 'mvnw.cmd test'
             }
         }
+
     }
 }
