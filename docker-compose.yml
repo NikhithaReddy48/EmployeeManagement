@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+
+  postgres-db:
+    image: postgres
+    environment:
+      POSTGRES_DB: Employee
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: silicon
+    ports:
+      - "5432:5432"
+
+  employee-app:
+    build: .
+    ports:
+      - "9090:9090"
+    depends_on:
+      - postgres-db
